@@ -1,29 +1,29 @@
 {{ define "title" }}{{ .Title }} | {{ .Site.Params.title_postfix }} {{ end }}
 
 {{ define "head" }}
-	{{- with .OutputFormats.Get "RSS" }}
-	<link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
-	<link href="{{ .RelPermalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
-	{{ end -}}
+{{- with .OutputFormats.Get "RSS" }}
+<link href="{{ .RelPermalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+<link href="{{ .RelPermalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
+{{ end -}}
 
-	<meta property="og:image" content="https://oggy.jfx.cz/{{- replace (plainify .Page.Title) " " "%20" -}}.png?images=https://f3l1x.io/img/f3l1x.png&fontSize=75px" />
-	<meta property="og:image:width" content="2048" />
-	<meta property="og:image:height" content="1170" />
+<meta property="og:image" content="https://oggy.jfx.cz/{{- replace (plainify .Page.Title) " " "%20" -}}.png?images=https://f3l1x.io/img/f3l1x.png&fontSize=75px" />
+<meta property="og:image:width" content="2048" />
+<meta property="og:image:height" content="1170" />
 
-	{{- range $key, $value := .Page.Params.meta }}
-	<meta property="{{ $key }}" content="{{ $value }}" />
-	{{ end -}}
+{{- range $key, $value := .Page.Params.meta }}
+<meta property="{{ $key }}" content="{{ $value }}" />
+{{ end -}}
 {{ end }}
 
 {{ define "assets" }}
-	{{ partial "assets" "/dist/index.css" -}}
-	{{ partial "assets" "/dist/blog/entry.css" -}}
-	{{ partial "assets" "/dist/index.js" -}}
-	{{ partial "assets" "/dist/blog/entry.js" -}}
+{{ partial "assets" "/dist/index.css" -}}
+{{ partial "assets" "/dist/blog/entry.css" -}}
+{{ partial "assets" "/dist/index.js" -}}
+{{ partial "assets" "/dist/blog/entry.js" -}}
 
-	{{ range $asset := .Page.Params.assets }}
-		{{ partial "assets" (printf "/dist/blogposts/%s/%s" (dateFormat "2006-01-02" $.Page.Date) $asset) -}}
-	{{ end }}
+{{ range $asset := .Page.Params.assets }}
+{{ partial "assets" (printf "/dist/blogposts/%s/%s" (dateFormat "2006-01-02" $.Page.Date) $asset) -}}
+{{ end }}
 {{ end }}
 
 {{ define "main" }}
@@ -58,15 +58,15 @@
 	</div>
 </div>
 
-<div class="max-w-4xl px-4 py-8 mx-auto md:py-16 sm:px-8">
+<div class="max-w-4xl px-4 pt-8 mx-auto md:pt-16 sm:px-8">
 	<div class="richtext">
 		{{ $body := replace .Content .Summary "" }}
 		{{ $body | safeHTML }}
 	</div>
 </div>
 
-<div class="max-w-4xl px-4 pb-8 mx-auto md:pb-16 sm:px-8">
-{{ partial "comments.html" }}
+<div class="max-w-4xl px-4 pb-8 mx-auto sm:px-8">
+	{{ partial "comments.html" }}
 </div>
 
 {{ end }}
